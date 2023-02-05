@@ -9,24 +9,15 @@ class RegistroController extends Controller
 {
     public function create(Request $request)
     {
-        if(request()->error_coment == null)
-        {
+        #dd($request);
+
             $array_registro = array(
                 "tesis_id" => request()->tesis_id,
                 "tecnica_id" => request()->tecnica_id,
                 "lugar" => request()->lugar,
-                "error" => request()->error,
-                "error_coment" => 'vacio',
+                "error_id" => request()->error,
             );
-        }else{
-            $array_registro = array(
-                "tesis_id" => request()->tesis_id,
-                "tecnica_id" => request()->tecnica_id,
-                "lugar" => request()->lugar,
-                "error" => request()->error,
-                "error_coment" => request()->error_coment,
-            );
-        }
+
 
         Registro::insert($array_registro);
 

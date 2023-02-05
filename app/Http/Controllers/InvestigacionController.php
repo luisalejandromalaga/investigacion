@@ -64,35 +64,23 @@ class InvestigacionController extends Controller
 
         $revisados = \DB::table('revisados')->get();
         $revisados = json_decode($revisados, true);
-
+        
         #Esto para agregar al array de registros el nombre de la tecnica en función del ID
-        if(count($revisados)>0)
+        foreach($investigaciones as $ik=>$iv)
         {
-            foreach($investigaciones as $ik=>$iv) {
-                foreach($revisados as $rk=>$rv) {
-                    if($iv['tesis_id']==$rv['tesis_id']){
-                        array_push($investigaciones[$ik], $rv['nivel']);
-                        $investigaciones[$ik]['nivel']=$investigaciones[$ik][0];
-                        unset($investigaciones[$ik][0]);
-                    }
-                    elseif($iv['tesis_id']!==$rv['tesis_id'])
-                    {
-                        array_push($investigaciones[$ik], 'Sin revisar');
-                        $investigaciones[$ik]['nivel']=$investigaciones[$ik][0];
-                        unset($investigaciones[$ik][0]);
-                    }
-                }
-            }
-        }else{
-            foreach($investigaciones as $ik=>$iv) {
-                array_push($investigaciones[$ik], 'Sin revisar');
-                $investigaciones[$ik]['nivel']=$investigaciones[$ik][0];
-                unset($investigaciones[$ik][0]);
-            }            
+            $investigaciones[$ik]['nivel']='Sin revisar';
         }
-
-
-        #dd($investigaciones);
+        if(count($revisados)>0)
+        {  
+            foreach($revisados as $rk=>$rv) 
+            { 
+                $s=array_search($rv['tesis_id'], array_column($investigaciones, 'tesis_id'));
+                if($s!==false)
+                {
+                    $investigaciones[$s]['nivel']='Revisada';
+                }
+            }    
+        }
         return view('clasificar')->with([
             'investigaciones' => $investigaciones,
         ]);
@@ -108,33 +96,21 @@ class InvestigacionController extends Controller
         $revisados = json_decode($revisados, true);
 
         #Esto para agregar al array de registros el nombre de la tecnica en función del ID
-        if(count($revisados)>0)
+        foreach($investigaciones as $ik=>$iv)
         {
-            foreach($investigaciones as $ik=>$iv) {
-                foreach($revisados as $rk=>$rv) {
-                    if($iv['tesis_id']==$rv['tesis_id']){
-                        array_push($investigaciones[$ik], $rv['nivel']);
-                        $investigaciones[$ik]['nivel']=$investigaciones[$ik][0];
-                        unset($investigaciones[$ik][0]);
-                    }
-                    elseif($iv['tesis_id']!==$rv['tesis_id'])
-                    {
-                        array_push($investigaciones[$ik], 'Sin revisar');
-                        $investigaciones[$ik]['nivel']=$investigaciones[$ik][0];
-                        unset($investigaciones[$ik][0]);
-                    }
-                }
-            }
-        }else{
-            foreach($investigaciones as $ik=>$iv) {
-                array_push($investigaciones[$ik], 'Sin revisar');
-                $investigaciones[$ik]['nivel']=$investigaciones[$ik][0];
-                unset($investigaciones[$ik][0]);
-            }            
+            $investigaciones[$ik]['nivel']='Sin revisar';
         }
-
-
-        #dd($investigaciones);
+        if(count($revisados)>0)
+        {  
+            foreach($revisados as $rk=>$rv) 
+            { 
+                $s=array_search($rv['tesis_id'], array_column($investigaciones, 'tesis_id'));
+                if($s!==false)
+                {
+                    $investigaciones[$s]['nivel']='Revisada';
+                }
+            }    
+        }
         return view('revisados')->with([
             'investigaciones' => $investigaciones,
         ]);

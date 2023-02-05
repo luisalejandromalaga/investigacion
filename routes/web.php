@@ -5,6 +5,8 @@ use App\Http\Controllers\InvestigacionController;
 use App\Http\Controllers\TecnicaController;
 use App\Http\Controllers\RegistroController;
 use App\Http\Controllers\RevisadoController;
+use App\Http\Controllers\TablaErrorController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -44,3 +46,6 @@ Route::post('nueva/registro', [RegistroController::class, 'create'])->name('nuev
 
 #Crear una nuevo Revisado
 Route::post('nueva/revisado', [RevisadoController::class, 'create'])->name('nueva.revisado');
+
+#Nuevo error
+Route::post('nuevo/error', [TablaErrorController::class, 'create'])->name('nuevo.error');

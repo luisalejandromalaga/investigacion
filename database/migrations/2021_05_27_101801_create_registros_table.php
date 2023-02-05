@@ -18,9 +18,9 @@ class CreateRegistrosTable extends Migration
             $table->string('tesis_id');
             $table->string('tecnica_id');
             $table->string('lugar');
-            $table->string('error');
-            $table->string('error_coment')->default('ningunos');
-
+            #$table->string('error');/*Se desechan - enviados a nueva tabla error independeinte*/
+            #$table->string('error_coment')->default('ningunos');/*Se desechan - enviados a nueva tabla error independeinte*/
+            $table->string('error_id');
             $table->timestamps();
         });
     }
